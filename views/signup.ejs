@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Signup</title>
+    <link rel="stylesheet" href="styles/signup.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">Hospital Signup</div>
+        <form id="signupForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="tel" name="tel" placeholder="+60 XX XXX XXXX" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="login">Login here</a></p>
+    </div>
+</body>
+
+
+<script>
+
+    document.getElementById('signupForm').addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent form from reloading the page
+    
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('tel').value;
+                const password = document.getElementById('password').value;
+
+                // Send sign-up request to the backend
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, phone ,password })
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message); // Show success message
+                } else {
+                    alert(result.error); // Show error message
+                }
+            });
+    
+    </script>
+
+</html

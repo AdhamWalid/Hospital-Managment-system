@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles/profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Your Profile</h1>
+        </div>
+        <div class="profile-details">
+            <h2>Account Data:</h2>
+            <div class="profile-info">
+                <p><strong>Username:</strong> <span id="email"><%= username %></span></p>
+                <p><strong>Email:</strong> <span id="email"><%= email %></span></p>
+                <p><strong>Phone:</strong> <span id="phone"><%= phone %></span></p>
+                <p><strong>Account Type:</strong> <span id="type"><%= type %></span></p>
+            </div>
+
+
+        </div>
+        <div class="profile-actions">
+            <button class="btn" id="logoutBtn">Logout</button>
+            <a class="btn" href="/home">Home</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            // Send logout request to the server
+            const response = await fetch('/logout', {
+                method: 'POST'
+            });
+            if (response.ok) {
+                window.location.href = '/login'; // Redirect to login page
+            } else {
+                alert('Error logging out. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
