@@ -18,11 +18,36 @@ const userSchema = mongoose.Schema({
     username : {type : String , required : true},
     email : {type: String , required : true},
     password : {type : String , required : true},
-    type : {type: String , required : true , default : "patient"},
+    type : {type: String , required : true , default : "Patient"},
     phone : {type : Number , required : true }
 })
 
-const User = mongoose.model('Users', userSchema);
+const doctorSchema = mongoose.Schema({
+    id : {type : Number , required : true},
+    name : {type: String , required : true},
+    password : {type : String , required : true},
+    country : {type : String , required : true},
+    speciality : {type: String , required : true},
+    phone : {type : Number , required : true },
+
+})
+
+const appointmentSchema = new mongoose.Schema({
+    name: String,
+    contact: String,
+    email: String,
+    date: Date,
+    time: String,
+    department: String,
+    reason: String
+});
+
+
+
+
+const User = mongoose.model('Patients', userSchema);
+const Doctor = mongoose.model('Doctors', doctorSchema);
+const Appointment = mongoose.model('Appointment', appointmentSchema);
 
 
 app.set('view engine', 'ejs');
@@ -54,7 +79,93 @@ app.get('/login' , (req,res) => {
     res.render('login')
 })
 
+app.get('/search', async (req, res) => {
+    const query = req.query.q;
+    
+    try {
+        // Search in name, specialty, and department fields
+        const doctors = await Doctor.find({
+            $or: [
+                { name: new RegExp(query, 'i') },
+                { specialty: new RegExp(query, 'i') },
+                { department: new RegExp(query, 'i') }
+            ]
+        });
+        res.json(doctors);
+    } catch (err) {
+        console.error('Error finding doctors:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+app.get('/agent/login' , (req,res) => {
+    
+    res.render('agentlogin')
+})
+
+app.get('/appointment', (req,res) =>{
+    res.render('appointment')
+})
+
+app.post('/appointments', async (req, res) => {
+    const { name, contact, email, date, time, department, reason } = req.body;
+
+    try {
+        const newAppointment = new Appointment({ name, contact, email, date, time, department, reason });
+        await newAppointment.save();
+        res.send('Appointment created successfully');
+    } catch (err) {
+        console.error('Error creating appointment:', err);
+        res.status(500).send('Failed to create appointment');
+    }
+});
+
+app.get('/agent/signup' , (req,res) => {
+    
+    res.render('agentsignup')
+})
+
+app.post('/agent/login', async (req, res) => {
+
+    const { id, password  , name , speciality , phone  , country} = req.body;
+    try {
+        const doctor = await Doctor.findOne({ id });
+        
+
+        if (!doctor || password != doc.password) {
+            return res.status(400).json({ error: '[INVALID] Contact IT Department.' });
+        }
+
+        req.session.docId = doctor._id;
+        req.session.doc_id = doctor.id;
+        req.session.doc_name = doctor.name;
+        req.session.doc_speciality = doctor.speciality;
+        req.session.doc_phone = doctor.phone;
+        req.session.doc_country = doctor.country;
+
+
+        
+        // id : {type : Number , required : true},
+        // password : {type : String , required : true},
+        // name : {type: String , required : true},
+        // country : {type : String , required : true},
+        // speciality : {type: String , required : true},
+        // phone : {type : Number , required : true },
+        // age : {type : Number , required : true },
+
+
+
+        res.redirect('/home')        
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+        console.log(error)
+    }
+});
+
+
 app.post('/login', async (req, res) => {
+
     const { email, password  , phone , username , type} = req.body;
     try {
         const user = await User.findOne({ username });
@@ -103,6 +214,23 @@ app.post('/signup', async (req, res) => {
 });
 
 
+app.post('/agent/signup', async (req, res) => {
+
+    const { id, name , password , country , speciality , phone} = req.body;
+    console.log(req)
+
+    try {
+        if (await User.findOne({ id })) return res.status(400).json({ error: 'ID already registered' });
+
+         const hashedPassword = await bcrypt.hash(password, 10);
+        await new Doctor({ id, name, password:hashedPassword , country , speciality , phone}).save();
+        res.status(201).json({ message: 'Registered successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+        console.log(error)
+    }
+});
+
 app.post('/logout', async (req, res) => {
 
     req.session.destroy(err => {
@@ -114,8 +242,27 @@ app.post('/logout', async (req, res) => {
     });
 });
 
-// Home
 
+
+app.get('/appointments/list', async (req, res) => {
+    try {
+        const appointments = await Appointment.find();
+        res.render('appointmentsList', { appointments });
+    } catch (err) {
+        console.error('Error fetching appointments:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/doctors/list', async (req, res) => {
+    try {
+        const doctors = await Doctor.find();
+        res.render('doctorsList', { doctors , i:0 });
+    } catch (err) {
+        console.error('Error fetching Doctors:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 
 // Profile
@@ -143,7 +290,10 @@ app.get('/profile' , async (req,res) => {
 })
 
 
-app.use((req, res) => res.status(404).render('404'));
+// 404 route (must be the last route)
+app.use((req, res) => {
+    res.status(404).render('404');
+});
 
 
 app.listen(3030 , () => {

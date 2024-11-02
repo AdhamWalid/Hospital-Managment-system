@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Appointments</title>
+    <link rel="stylesheet" href="/styles/appointmentsList.css">
+</head>
+<body>
+    <header class="appointments-header">
+        <h1>Appointment List</h1>
+        <p>View all scheduled appointments</p>
+    </header>
+
+    <main class="appointments-container">
+        <% if (appointments.length > 0) { %>
+            <table class="appointments-table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Appointment Date</th>
+                        <th>Time</th>
+                        <th>Department</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% appointments.forEach(appointment => { %>
+                        <tr>
+                            <td><%= appointment.name %></td>
+                            <td><%= appointment.contact %></td>
+                            <td><%= appointment.email %></td>
+                            <td><%= new Date(appointment.date).toLocaleDateString() %></td>
+                            <td><%= appointment.time %></td>
+                            <td><%= appointment.department %></td>
+                            <td><%= appointment.reason %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="no-appointments">No appointments found.</p>
+        <% } %>
+    </main>
+
+    <footer class="appointments-footer">
+        <p>&copy; 2024 YourHospital. All rights reserved.</p>
+    </footer>
+</body>
+</html>

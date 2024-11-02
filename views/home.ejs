@@ -3,45 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Home</title>
-    <link rel="stylesheet" href="styles/home.css">
+    <title>Hospital Homepage</title>
+    <link rel="stylesheet" href="/styles/home.css">
 </head>
 <body>
-    <!-- Header with Login and Signup Buttons -->
-    <header class="header">
-        <div class="header-content">
-            <h1>Welcome to Our Hospital</h1>
-            <p>Your health, our priority.</p>
-            <div class="auth-buttons">
-
-                <a href="login" class="button auth-button">Login</a>
-                <a href="signup" class="button auth-button signup-button">Sign Up</a>
-
-            </div>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Hospital</div>
+        <div class="contact-info">
+            <p><span style="color: red;">Emergency</span> Hotline: <a href="tel:+123456789">+1 (234) 567-89</a></p>
         </div>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="/doctors/list">Doctors</a></li>
+                <li><a href="/login">Patient Portal</a></li>
+                <li><a href="/appointment">Appointments</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="content">
-        <section class="card">
-            <h2>Appointments</h2>
-            <p>Book an appointment with our experienced doctors and specialists.</p>
-            <a href="#" class="button">Book Now</a>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Compassionate Care, Advanced Medicine, Close to Home</h1>
+            <div class="cta-buttons">
+                <a href="/appointment" class="btn">Book Appointment</a>
+                <a href="/doctors/list" class="btn">Find a Doctor</a>
+                <a href="#" class="btn">View Services</a>
+            </div>
+            <input type="text" id="search-bar" placeholder="Search for doctors, specialties, or departments..." class="search-bar">
+            <br>
+            <div id="search-results"></div> <!-- Container for search results -->
+        
+    </section>
 
-        <section class="card">
-            <h2>Our Services</h2>
-            <p>Explore a range of healthcare services designed for you and your family.</p>
-            <a href="#" class="button">Learn More</a>
-        </section>
+    <!-- Services Section -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-cards">
+            <div class="service-card">
+                <h3>Emergency Care</h3>
+                <p>Immediate care for all emergencies.</p>
+                <a href="#">Learn More</a>
+            </div>
+            <div class="service-card">
+                <h3>Surgery</h3>
+                <p>Advanced surgical facilities and specialists.</p>
+                <a href="#">Learn More</a>
+            </div>
+            <div class="service-card">
+                <h3>Pediatrics</h3>
+                <p>Comprehensive care for children.</p>
+                <a href="#">Learn More</a>
+            </div>
+            <div class="service-card">
+                <h3>Cardiology</h3>
+                <p>Heart care services with expert doctors.</p>
+                <a href="#">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-        <section class="card">
-            <h2>Contact Us</h2>
-            <p>Get in touch with us for any inquiries or assistance.</p>
-            <a href="#" class="button">Contact</a>
-        </section>
-    </main>
+    <!-- Doctors Section -->
+    <section class="doctors">
+        <h2>Meet Our Specialists</h2>
+        <div class="doctor-cards">
+            <div class="doctor-card">
+                <img src="/images/MagdyYaacoub.jpg" alt="Doctor Photo">
+                <h3>Dr. Magdy Yaacoub</h3>
+                <p>Cardiologist</p>
+            </div>
+            <div class="doctor-card">
+                <img src="/images/hossammowafy.jpeg" alt="Doctor Photo">
+                <h3>Dr. Hossam Mowafy</h3>
+                <p>Pulmonologist</p>
+            </div>
+        </div>
+        <a href="#" class="btn">See All Specialists</a>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <ul>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Insurance Info</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+            </ul>
+            <br>
+            <p>&copy; 2024 YourHospital. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
+
+    <script>
+        document.getElementById('search-bar').addEventListener('input', async function () {
+            const query = this.value;
+
+            if (query.length >= 3) { // start searching only if query is at least 3 characters long
+                try {
+                    const response = await fetch(`/search?q=${query}`);
+                    const results = await response.json();
+                    
+                    // Display results
+                    const resultsContainer = document.getElementById('search-results');
+                    resultsContainer.innerHTML = ''; // Clear previous results
+
+                    if (results.length) {
+                        results.forEach(doctor => {
+                            const doctorDiv = document.createElement('div');
+                            doctorDiv.classList.add('doctor-result');
+                            doctorDiv.innerHTML = `<span style="color:white"><strong>${doctor.name}</strong> - ${doctor.speciality}</span>`;
+                            resultsContainer.appendChild(doctorDiv);
+                        });
+                    } else {
+                        resultsContainer.innerHTML = '<p>No results found</p>';
+                    }
+                } catch (error) {
+                    console.error('Error fetching search results:', error);
+                }
+            }
+        });
+    </script>
 
 </html>

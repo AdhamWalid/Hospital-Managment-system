@@ -1,0 +1,120 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+.doctors-header {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #1e6d64;
+    color: #fff;
+    
+}
+
+.doctors-header a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #1e6d64;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.doctors-header a:hover {
+    background-color: #144b45;
+    color: #fff;
+}
+
+.doctors-header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.doctors-header p {
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Main container */
+.doctors-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* Table styling */
+.doctors-table {
+    width: 100%;
+    max-width: 1100px;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+.doctors-table thead {
+    background-color: #1e6d64;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.doctors-table th, .doctors-table td {
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 1em;
+}
+
+/* Table body styling */
+.doctors-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.doctors-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.doctors-table tbody tr:hover {
+    background-color: #f1f4f9;
+}
+
+/* No doctors message */
+.no-doctors {
+    font-size: 1.2em;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Footer styling */
+.doctors-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e6d64;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+/* Link styling in footer */
+.doctors-footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.doctors-footer a:hover {
+    text-decoration: underline;
+}

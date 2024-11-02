@@ -1,0 +1,153 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header styling */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Main container */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px;
+}
+
+/* Form styling */
+.appointment-form {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form label {
+    font-size: 1em;
+    margin-top: 15px;
+    display: block;
+    color: #555;
+}
+
+.appointment-form input[type="text"],
+.appointment-form input[type="tel"],
+.appointment-form input[type="email"],
+.appointment-form input[type="date"],
+.appointment-form input[type="time"],
+.appointment-form select,
+.appointment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.appointment-form select {
+    cursor: pointer;
+}
+
+.appointment-form textarea {
+    resize: vertical;
+}
+
+/* Button styling */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+/* General input styling for consistency */
+.appointment-form input[type="date"] {
+    appearance: none; /* Removes default styling in most browsers */
+    -webkit-appearance: none; /* For Safari */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Placeholder text color */
+.appointment-form input[type="date"]::placeholder {
+    color: #aaa;
+}
+
+/* Optional custom icon styling */
+.appointment-form input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.appointment-form input[type="date"]:hover::-webkit-calendar-picker-indicator {
+    opacity: 1;
+}
+
+/* Additional date input styles for different browsers */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    /* For Chrome and Safari */
+    .appointment-form input[type="date"] {
+        padding-right: 15px; /* Space for calendar icon */
+    }
+}
+
+.appointment-form input[type="date"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}

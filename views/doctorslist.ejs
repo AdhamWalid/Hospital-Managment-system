@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Directory</title>
+    <link rel="stylesheet" href="/styles/doctorsList.css">
+</head>
+<body>
+    <header class="doctors-header">
+        <h1>Doctor Directory</h1>
+        <p>View all doctors and their specialties</p>
+        <a href="/home">Home</a>
+    </header>
+
+    <main class="doctors-container">
+        <% if (doctors.length > 0) { %>
+            <table class="doctors-table">
+                <thead>
+                    <tr>
+                        <!-- id : {type : Number , required : true},
+                        name : {type: String , required : true},
+                        password : {type : String , required : true},
+                        country : {type : String , required : true},
+                        speciality : {type: String , required : true},
+                        phone : {type : Number , required : true }, -->
+                        <th>#</th>
+                        <th>Doctor ID</th>
+                        <th>Name</th>
+                        <th>Phone No.</th>
+                        <th>Country</th>
+                        <th>Department</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% doctors.forEach(doctor => { %>
+                        <tr>
+                            <td><%= i++ %></td>
+                            <td><%= doctor.id %></td>
+                            <td><%= doctor.name %></td>
+                            <td><%= doctor.phone %></td>
+                            <td><%= doctor.country %></td>
+                            <td><%= doctor.speciality %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="no-doctors">No doctors found.</p>
+        <% } %>
+    </main>
+
+    <footer class="doctors-footer">
+        <p>&copy; 2024 Hospital. All rights reserved.</p>
+    </footer>
+</body>
+</html>
