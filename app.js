@@ -6,8 +6,9 @@ const chalk = require('chalk')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs')
 const session = require('express-session');
+require('dotenv').config()
 
-mongoose.connect('mongodb+srv://Adham:HadbZEOFMtb1iPTR@hospital.94gew.mongodb.net/hospital')
+mongoose.connect(process.env.MONGODB_STRING)
     .then(() => console.log(chalk`Database : {green  Stable}`))
     .catch(err => console.log(chalk`Database : {red Stable} \n ${err.message}`));
 
@@ -178,7 +179,7 @@ app.post('/login', async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
         req.session.email = user.email
-        req.session.type = user.type;
+        req.session.type = user.type
         req.session.phone = user.phone;
         
         res.redirect('/home')        
@@ -197,7 +198,6 @@ app.get('/signup' , (req,res) => {
 app.post('/signup', async (req, res) => {
 
     const { username, email, password , phone} = req.body;
-    console.log(req)
 
     try {
         if (await User.findOne({ email })) return res.status(400).json({ error: 'Email already registered' });
