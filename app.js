@@ -80,6 +80,11 @@ app.get('/login' , (req,res) => {
     res.render('login')
 })
 
+app.get('/doctor/login' , (req,res) => {
+    
+    res.render('doclogin')
+})
+
 app.get('/search', async (req, res) => {
     const query = req.query.q;
     
@@ -189,6 +194,32 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/doctor/login', async (req, res) => {
+
+    const { id , password , username} = req.body;
+    try {
+        const doc = await Doctor.findOne({ username });
+
+        console.log(doc)
+        if (!doc || !await bcrypt.compare(password, doc.password)) {
+            return res.status(400).json({ error: 'Invalid login' });
+        }
+
+        req.session.userId = doc._id;
+        req.session.username = doc.username;
+        req.session.email = doc.email
+        req.session.type = "Doctor";
+        req.session.speciality = doc.speciality;
+        req.session.country = doc.country;
+        req.session.phone = doc.phone;
+        
+        res.redirect('/home')        
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+        console.log(error)
+    }
+});
+
 // ⁡⁢⁢⁢Signup
 
 app.get('/signup' , (req,res) => {
@@ -255,7 +286,7 @@ app.get('/appointments/list', async (req, res) => {
     }
 });
 
-app.get('/doctors/list', async (req, res) => {
+app.get('/doctor/list', async (req, res) => {
     try {
         const doctors = await Doctor.find();
         res.render('doctorsList', { doctors , i:0 });

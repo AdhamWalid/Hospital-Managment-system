@@ -1,0 +1,100 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Set the background */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #232323;
+}
+
+/* Centered container */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Logo styling */
+.logo {
+    font-size: 1.8rem;
+    color: #9d2a2a;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 1rem;
+    color: #9d2a2a;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #9d2a2a;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #9d2a2a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #681d1d;
+}
+
+/* Link styling */
+.forgot-password {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #9d2a2a;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.login-link a {
+    color: #9d2a2a;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+    color: #521717;
+}
