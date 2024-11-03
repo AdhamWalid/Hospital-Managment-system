@@ -245,6 +245,7 @@ app.post('/logout', async (req, res) => {
 
 
 app.get('/appointments/list', async (req, res) => {
+
     try {
         const appointments = await Appointment.find();
         res.render('appointmentsList', { appointments });
