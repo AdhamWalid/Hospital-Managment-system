@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 const session = require('express-session');
 require('dotenv').config()
 
-mongoose.connect(process.env.MONGODB_STRING)
+mongoose.connect('mongodb+srv://Adham:f6BFkacaENuEeoDY@hospital.94gew.mongodb.net/hospital')
     .then(() => console.log(chalk`Database : {green  Stable}`))
     .catch(err => console.log(chalk`Database : {red Stable} \n ${err.message}`));
 

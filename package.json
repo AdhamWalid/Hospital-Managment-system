@@ -6,8 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "AdhamWalid",
+  "license": "Apache-2.0",
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
